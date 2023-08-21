@@ -9,6 +9,8 @@ use App\Models\Option;
 use App\Models\Voter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Gate;
+
 
 class AdminController extends Controller
 {
@@ -50,6 +52,13 @@ class AdminController extends Controller
 
     public function addOption(AddOptionRequest $request, Poll $poll)
     {
+        Log::info('addOption method accessed');
+        Log::info('Poll ID:', [$poll->id]);
+        Log::info('Request Data:', $request->all());
+
+
+        $this->authorize('create', Option::class);
+
         Option::create([
             'poll_id' => $poll->id,
             'project_number' => $request->project_number,

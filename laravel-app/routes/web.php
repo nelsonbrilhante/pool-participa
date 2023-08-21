@@ -54,7 +54,9 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
     // Poll Routes
     Route::prefix('poll')->group(function () {
         Route::get('/options/add', [AdminController::class, 'showAddOptionForm'])->name('admin.showAddOptionForm');
-        Route::post('/options/add', [AdminController::class, 'addOption'])->name('admin.addOption');
+        //Route::post('/options/add', [AdminController::class, 'addOption'])->name('admin.addOption');
+        Route::post('/options/add/{poll}', [AdminController::class, 'addOption'])->name('admin.addOption');
+
         Route::get('/edit', [AdminController::class, 'editPoll'])->name('admin.editPoll');
         Route::put('/update', [AdminController::class, 'updatePoll'])->name('admin.updatePoll');
         Route::get('/options/edit/{optionId}', [AdminController::class, 'showEditOptionForm'])->name('admin.showEditOptionForm');

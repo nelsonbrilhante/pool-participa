@@ -42,12 +42,12 @@
                     <ul>
                         @foreach ($poll->options as $option)
                             <li>
-                                <strong>Project Number:</strong> {{ $option->project_number }}<br>
-                                <strong>Owner:</strong> {{ $option->owner }}<br>
-                                <strong>Theme:</strong> {{ $option->theme }}<br>
-                                <strong>Description:</strong> {{ $option->description }}<br>
-                                <strong>Amount:</strong> ${{ number_format($option->amount, 2) }}<br>
-                                <strong>Votes:</strong> {{ $option->vote_count }}<br>
+                                <strong>Número:</strong> {{ $option->project_number }}<br>
+                                <strong>Preponente:</strong> {{ $option->owner }}<br>
+                                <strong>Tema:</strong> {{ $option->theme }}<br>
+                                <strong>Descrição:</strong> {{ $option->description }}<br>
+                                <strong>Montante imputado:</strong> €{{ number_format($option->amount, 2) }}<br>
+                                <strong>Votos:</strong> {{ $option->vote_count }}<br>
                                 <hr>
                             </li>
                         @endforeach
