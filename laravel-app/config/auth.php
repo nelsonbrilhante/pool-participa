@@ -40,6 +40,12 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'voter' => [
+            // Adding the voter guard
+            'driver' => 'session',
+            'provider' => 'voters',
+        ],
     ],
 
     /*
@@ -65,10 +71,11 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'voters' => [
+            // Adding the voters provider
+            'driver' => 'eloquent',
+            'model' => App\Models\Voter::class,
+        ],
     ],
 
     /*
