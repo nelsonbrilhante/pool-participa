@@ -74,9 +74,17 @@ class AdminController extends Controller
 
     public function statistics()
     {
+        // Fetch all polls
         $polls = Poll::all();
+
+        // For each poll, sort its options by vote count in descending order
+        foreach ($polls as $poll) {
+            $poll->options = $poll->options()->orderByDesc('vote_count')->get();
+        }
+
         return view('admin.statistics', ['polls' => $polls]);
     }
+
 
     public function manageVoters()
     {

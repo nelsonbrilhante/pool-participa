@@ -7,20 +7,12 @@ use App\Http\Controllers\PollController;
 use App\Http\Controllers\VoterController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
 Route::get('/', function () {
     return view('home');
 })->name('home');
+
+// DEUGGING
+Route::get('/debug-session', [VoterController::class, 'debugSession']);
 
 // VOTER ROUTES
 Route::prefix('voter')->group(function () {
@@ -33,9 +25,13 @@ Route::prefix('voter')->group(function () {
 // POLL ROUTES
 Route::prefix('polls')->group(function () {
     Route::get('/', [PollController::class, 'index'])->name('polls.index');
+    Route::get('/error', function () {
+        return view('polls.polls_error');
+    })->name('polls.error'); // Move this route above the others
     Route::get('/{poll}', [PollController::class, 'show'])->name('polls.show');
     Route::post('/{poll}/vote', [PollController::class, 'vote'])->name('polls.vote');
     Route::get('/{poll}/results', [PollController::class, 'results'])->name('polls.results');
+    Route::get('/{poll}/voteDetails', [PollController::class, 'voteDetails'])->name('polls.voteDetails');
 });
 
 // LOGIN AND REGISTRATION ROUTES

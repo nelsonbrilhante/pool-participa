@@ -62,4 +62,12 @@ class VoterController extends Controller
         session()->forget('voter_id'); // Remove the id_number from the session
         return redirect()->route('home'); // Redirect to the homepage or any other preferred route
     }
+
+    public function debugSession(Request $request)
+    {
+        $data = $request->session()->all();
+
+        return view('debug.session', ['data' => $data]);
+    }
+
 }

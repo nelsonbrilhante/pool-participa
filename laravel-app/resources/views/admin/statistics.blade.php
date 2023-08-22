@@ -2,20 +2,35 @@
 
 @section('content')
     <div class="container">
-        <h1 class="mb-4">Voting Statistics</h1>
+        <h1 class="mb-4">Estatística da votação</h1>
 
         @foreach ($polls as $poll)
             <div class="card mb-4">
-                <div class="card-header">{{ $poll->title }}</div>
+                <div class="card-header">{{ $poll->title }} | Propostas</div>
                 <div class="card-body">
-                    <ul class="list-group">
-                        @foreach ($poll->options as $option)
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                {{ $option->description }}
-                                <span class="badge bg-primary rounded-pill">{{ $option->vote_count }}</span>
-                            </li>
-                        @endforeach
-                    </ul>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">N.º</th>
+                                    <th>Tema</th>
+                                    <th class="text-center">Montante imputado</th>
+                                    <th class="text-center">Contagem de votos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($poll->options as $option)
+                                    <tr>
+                                        <td class="text-center">{{ $option->project_number }}</td>
+                                        <td>{{ $option->theme }}</td>
+                                        <td class="text-center">€{{ number_format($option->amount, 2) }}</td>
+                                        <td class="text-center"><span
+                                                class="badge bg-primary">{{ $option->vote_count }}</span></td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         @endforeach

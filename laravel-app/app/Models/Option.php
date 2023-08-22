@@ -13,14 +13,27 @@ class Option extends Model
         'poll_id',
         'description',
         'vote_count',
-        'project_number', // This field was added based on your form data.
-        'owner',          // This field was added based on your form data.
-        'theme',          // This field was added based on your form data.
-        'amount'          // This field was added based on your form data.
+        'project_number',
+        'owner',
+        'theme',
+        'amount',
     ];
+
 
     public function poll()
     {
         return $this->belongsTo(Poll::class);
     }
+
+    public function voters()
+    {
+        return $this->belongsToMany(Voter::class, 'votes')->withTimestamps();
+    }
+
+    public function optionsSortedByVotes()
+    {
+        return $this->hasMany(Option::class)->orderByDesc('vote_count');
+    }
+
+
 }

@@ -9,7 +9,10 @@ class Vote extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['poll_id', 'voted_at'];
+    protected $fillable = [
+        'poll_id',
+        'voted_at',
+    ];
 
     public function poll()
     {

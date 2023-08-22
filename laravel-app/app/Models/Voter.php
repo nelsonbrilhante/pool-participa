@@ -11,4 +11,10 @@ class Voter extends Authenticatable // Extend Authenticatable instead of Model
     use HasFactory;
 
     protected $fillable = ['id_number', 'name', 'table', 'has_voted'];
+
+    public function votes()
+    {
+        return $this->belongsToMany(Option::class, 'votes')->withTimestamps();
+    }
+
 }
