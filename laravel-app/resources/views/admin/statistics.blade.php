@@ -6,7 +6,7 @@
 
         @foreach ($polls as $poll)
             <div class="card mb-4">
-                <div class="card-header">{{ $poll->title }} | Propostas</div>
+                <div class="card-header">{{ $poll->title }} | Resultados</div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-striped table-hover">

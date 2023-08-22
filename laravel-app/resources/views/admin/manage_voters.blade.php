@@ -2,28 +2,34 @@
 
 @section('content')
     <div class="container">
-        <h1 class="mb-4">Manage Voters</h1>
+        <h1 class="mb-4">Consultar votantes</h1>
 
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">ID Number</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Voting Table</th>
-                    <th scope="col">Has Voted</th>
-                    <!-- Additional columns for actions like edit or delete can be added -->
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($voters as $voter)
-                    <tr>
-                        <td>{{ $voter->id_number }}</td>
-                        <td>{{ $voter->name }}</td>
-                        <td>{{ $voter->table }}</td>
-                        <td>{{ $voter->has_voted ? 'Yes' : 'No' }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+        <div class="card">
+            <div class="card-header">Lista de votantes</div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Número de identificação</th>
+                                <th>Nome completo</th>
+                                <th class="text-center">Mesa de eleitor</th>
+                                <th class="text-center">Já votou?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($voters as $voter)
+                                <tr>
+                                    <td class="text-center">{{ $voter->id_number }}</td>
+                                    <td>{{ $voter->name }}</td>
+                                    <td class="text-center">{{ $voter->table }}</td>
+                                    <td class="text-center">{{ $voter->has_voted ? 'Sim' : 'Não' }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
