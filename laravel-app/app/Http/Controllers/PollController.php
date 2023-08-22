@@ -26,74 +26,51 @@ class PollController extends Controller
 
     public function vote(Request $request, Poll $poll)
     {
-        // Enable SQL query logging for debugging purposes
-        DB::enableQueryLog();
-
-        Log::info('Request Data:', $request->all());
-
         // Fetch voter based on id_number instead of id
         $voter = Voter::where('id_number', session('voter_id'))->first();
 
+        // Check if voter has already voted or is not authorized
         if (!$voter || $voter->has_voted) {
-            // Logging the condition for debugging
-            Log::info('Vote attempt failed:', ['reason' => 'Voter not found or already voted']);
-
-            // Redirect to error view
             return redirect()->route('polls.error')->with('error', 'You have already voted or are not authorized.');
         }
 
+        // Fetch the selected option
         $selectedOption = $request->input('option_id');
         $option = Option::find($selectedOption);
 
+        // Check if the selected option is valid
         if (!$option || $option->poll_id !== $poll->id) {
-            // Logging the condition for debugging
-            Log::info('Vote attempt failed:', ['reason' => 'Invalid option selected', 'selectedOption' => $selectedOption]);
-
             return redirect()->route('polls.error')->with('error', 'Invalid option selected.');
         }
 
-        $option->increment('vote_count');
-
-        // Record the vote
+        // Begin the transaction
         DB::beginTransaction();
         try {
-            // Increment option's vote_count and save
-            $option->vote_count += 1;
-            $saveOption = $option->save();
+            // Increment the vote count for the selected option
+            $option->increment('vote_count');
 
-            // Update voter's has_voted status and save
+            // Mark the voter as having voted
             $voter->has_voted = true;
-            $saveVoter = $voter->save();
+            $voter->save();
 
-            // Create a new vote record and save
+            // Record the vote in the votes table
             $vote = new Vote(['poll_id' => $poll->id, 'voted_at' => now()]);
-            $saveVote = $vote->save();
+            $vote->save();
 
-            // Logging the status of each save operation for debugging
-            Log::info('Option save status:', ['status' => $saveOption]);
-            Log::info('Voter save status:', ['status' => $saveVoter]);
-            Log::info('Vote save status:', ['status' => $saveVote]);
-
-            // If all operations are successful, commit the transaction
+            // Commit the transaction
             DB::commit();
 
-            // Redirect to vote details view
+            // Redirect to the vote details view
             return redirect()->route('polls.voteDetails', ['poll' => $poll->id]);
         } catch (\Exception $e) {
-            // Rollback the transaction in case of any errors
+            // Roll back the transaction in case of an error
             DB::rollback();
-
-            // Log the exception message for debugging
-            Log::error('Vote error:', ['error' => $e->getMessage()]);
 
             // Redirect to error view with a generic error message
             return redirect()->route('polls.error')->with('error', 'There was an error processing your vote.');
-        } finally {
-            // Log all SQL queries that were run during this request for debugging
-            $log = DB::getQueryLog();
-            Log::info('SQL Queries:', $log);
         }
     }
+
 
 
     public function voteDetails(Poll $poll)
