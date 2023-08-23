@@ -104,10 +104,14 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col text-center text-white">
-                    <p>&copy; 2023 - @php echo date('Y'); @endphp Orçamento Participativo. Todos os direitos reservados. Developed
-                        by: <a href="https://nelsonbrilhante.com" target="_blank"
-                            style="color: inherit; text-decoration: inherit;">Nelson Brilhante | GTIM</a></p>
+                <div class="col text-center text-white mt-3">
+                    <p>&copy; 2023 - @php echo date('Y'); @endphp <a href="https://cm-nazare.pt" target="_blank"
+                            style="color: inherit; text-decoration: inherit;">Município da Nazaré</a>. Todos os direitos
+                        reservados. </p>
+                    <p style="font-size: .8rem;">
+                        Desenvolvido por: <a href="https://nelsonbrilhante.com"
+                        target="_blank" style="color: inherit; text-decoration: inherit;">Nelson Brilhante | GTIM</a>
+                    </p>
                 </div>
             </div>
         </div>
