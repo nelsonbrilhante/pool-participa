@@ -3,6 +3,17 @@
 @section('content')
     <div class="container">
         <h1 class="mb-4">Consultar votantes</h1>
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
 
         <div class="card">
             <div class="card-header">Lista de votantes</div>
