@@ -6,6 +6,7 @@ use App\Models\Voter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class VoterController extends Controller
 {
@@ -33,11 +34,13 @@ class VoterController extends Controller
                 session(['voter_id' => $voter->id_number]);
                 return response()->json(['success' => true]);
             }
-            return response()->json(['message' => $request->filled('name') ? 'O nome não corresponde.' : 'requiresNameValidation'], 422);
+            // Return 200 OK with the message
+            return response()->json(['message' => $request->filled('name') ? 'O nome não corresponde.' : 'requiresNameValidation']);
         }
 
         return response()->json(['message' => 'Número inválido ou já votou.'], 422);
     }
+
 
     /**
      * Validates the name of the voter.

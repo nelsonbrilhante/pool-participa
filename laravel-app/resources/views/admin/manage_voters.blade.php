@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1 class="mb-4">Consultar votantes</h1>
+        <h1 class="mb-4">Caderno Eleitoral</h1>
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -16,7 +16,7 @@
         @endif
 
         <div class="card">
-            <div class="card-header">Lista de votantes</div>
+            <div class="card-header">Lista de eleitores</div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-striped table-hover">
@@ -29,14 +29,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($voters as $voter)
+                            @forelse ($voters as $voter)
                                 <tr>
                                     <td class="text-center">{{ $voter->id_number }}</td>
                                     <td>{{ $voter->name }}</td>
                                     <td class="text-center">{{ $voter->table }}</td>
                                     <td class="text-center">{{ $voter->has_voted ? 'Sim' : 'Não' }}</td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center">Sem eleitores registados!</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

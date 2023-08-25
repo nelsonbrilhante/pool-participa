@@ -9,7 +9,7 @@
             <div class="col-md-6">
                 <div class="card mb-4">
 
-                    <div class="card-header">Sou votante...</div>
+                    <div class="card-header">Sou eleitor...</div>
                     <div class="card-body">
                         <div id="error-message" class="alert alert-danger mt-3" style="display:none;">
                             <!-- Error message will be inserted here -->
@@ -29,9 +29,6 @@
 
                             <button type="submit" class="btn btn-primary">Login</button>
                         </form>
-
-
-
                     </div>
                 </div>
             </div>
@@ -85,7 +82,9 @@
                     method: 'POST',
                     data: $(this).serialize(),
                     success: function(response) {
-                        if (response.requiresNameValidation) {
+                        console.log("Success response: ",
+                        response); // Log the success response for debugging
+                        if (response.message === 'requiresNameValidation') {
                             // Show the name input field
                             $('#name-field').show();
                         } else {
@@ -94,6 +93,10 @@
                         }
                     },
                     error: function(jqXHR) {
+                        console.log("Error response: ", jqXHR);
+                        console.log("Response Text: ", jqXHR.responseText);
+                        console.log("Status: ", jqXHR.status);
+                        console.log("Status Text: ", jqXHR.statusText);
                         // Show error message
                         $('#error-message').show().text(jqXHR.responseJSON.message);
                     }
@@ -101,5 +104,4 @@
             });
         });
     </script>
-
 @endsection

@@ -10,12 +10,20 @@
 
             <div class="mb-3 mt-4">
                 <label for="project_number" class="form-label">N.º</label>
-                <input type="text" class="form-control" id="project_number" name="project_number" value="{{ $option->project_number }}" required>
+                <input type="text" class="form-control" id="project_number" name="project_number"
+                    value="{{ $option->project_number }}" required>
+            </div>
+
+            <div class="mb-3 mt-4">
+                <label for="theme" class="form-label">Tema da proposta</label>
+                <input type="text" class="form-control" id="theme" name="theme" value="{{ $option->theme }}"
+                    required>
             </div>
 
             <div class="mb-3">
                 <label for="owner" class="form-label">Preponente</label>
-                <input type="text" class="form-control" id="owner" name="owner" value="{{ $option->owner }}" required>
+                <input type="text" class="form-control" id="owner" name="owner" value="{{ $option->owner }}"
+                    required>
             </div>
 
             <div class="mb-3">
@@ -25,7 +33,8 @@
 
             <div class="mb-3">
                 <label for="amount" class="form-label">Montante imputado</label>
-                <input type="text" class="form-control" id="amount" name="amount" value="{{ $option->amount }}" required>
+                <input type="text" class="form-control" id="amount" name="amount" value="{{ $option->amount }}"
+                    required>
             </div>
 
             <button type="submit" class="btn btn-primary">Atualizar</button>
