@@ -30,6 +30,9 @@
                         @if (Auth::user()->is_admin)
                             <!-- Admin Specific Links -->
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('options.index') }}">Propostas</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.dashboard') }}">Dashboard</a>
                             </li>
                             <li class="nav-item dropdown">
@@ -38,13 +41,9 @@
                                     Gerir Votação
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="managePollsDropdown">
-                                    <li><a class="dropdown-item" href="{{ route('admin.editPoll') }}">Editar votação</a>
+                                    <li><a class="dropdown-item" href="{{ route('admin.editPoll') }}">Editar Votação</a>
                                     </li>
-                                    <li><a class="dropdown-item" href="{{ route('admin.showAddOptionForm') }}">Adicionar
-                                            proposta</a></li>
-                                    <li><a class="dropdown-item"
-                                            href="{{ route('admin.showEditOptionForm', ['optionId' => 1]) }}">Editar
-                                            proposta</a></li>
+                                    <li><a class="dropdown-item" href="#">Criar Votação</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item">
@@ -52,6 +51,10 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.manageVoters') }}">Votantes</a>
+                            </li>
+                            <!-- CSV Import Link -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.csvImport') }}">Importar CSV</a>
                             </li>
                             <li class="nav-item">
                                 <span class="navbar-text text-light">{{ Auth::user()->name }}</span>
@@ -109,14 +112,13 @@
                             style="color: inherit; text-decoration: inherit;">Município da Nazaré</a>. Todos os direitos
                         reservados. </p>
                     <p style="font-size: .8rem;">
-                        Desenvolvido por: <a href="https://nelsonbrilhante.com"
-                        target="_blank" style="color: inherit; text-decoration: inherit;">Nelson Brilhante | GTIM</a>
+                        Desenvolvido por: <a href="https://nelsonbrilhante.com" target="_blank"
+                            style="color: inherit; text-decoration: inherit;">Nelson Brilhante | GTIM</a>
                     </p>
                 </div>
             </div>
         </div>
     </footer>
-
 
     <!-- Bootstrap 5 JS and Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
