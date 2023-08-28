@@ -86,7 +86,19 @@ class AdminController extends Controller
     public function manageVoters()
     {
         $voters = Voter::all();
-        return view('admin.manage_voters', ['voters' => $voters]);
+        $regions = Voter::select('region')->distinct()->pluck('region');
+
+        $totalVoters = Voter::count();
+        $regionCounts = Voter::select('region', DB::raw('count(*) as count'))
+            ->groupBy('region')
+            ->pluck('count', 'region');
+
+        return view('admin.manage_voters', [
+            'voters' => $voters,
+            'regions' => $regions,
+            'totalVoters' => $totalVoters,
+            'regionCounts' => $regionCounts
+        ]);
     }
 
     public function showCreatePollForm()
@@ -147,21 +159,24 @@ class AdminController extends Controller
 
     public function searchVoters(Request $request)
     {
-        Log::info('searchVoters method was called.');
-
         $query = $request->get('query');
+        $region = $request->get('region');
 
-        Log::info("Received search query:", [$query]); // Debugging line
+        $votersQuery = DB::table('voters');
 
-        $voters = DB::table('voters')
-            ->where('name', 'LIKE', '%' . $query . '%')
-            ->orWhere('id_number', 'LIKE', '%' . $query . '%')
-            ->orWhere('region', 'LIKE', '%' . $query . '%')
-            ->get();
+        if ($query) {
+            $votersQuery->where(function ($q) use ($query) {
+                $q->where('name', 'LIKE', '%' . $query . '%')
+                  ->orWhere('id_number', 'LIKE', '%' . $query . '%');
+            });
+        }
 
-        Log::info("Fetched voters:", [$voters]); // Debugging line
+        if ($region) {
+            $votersQuery->where('region', $region);
+        }
 
-
+        $voters = $votersQuery->get();
         return view('voter.partials.voters_table', ['voters' => $voters]);
     }
+
 }
