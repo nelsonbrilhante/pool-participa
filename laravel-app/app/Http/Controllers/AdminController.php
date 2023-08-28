@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AddOptionRequest;
 use App\Http\Requests\CreatePollRequest;
-use App\Models\Poll;
 use App\Models\Option;
+use App\Models\Poll;
 use App\Models\Voter;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 
 
 class AdminController extends Controller
@@ -26,8 +27,6 @@ class AdminController extends Controller
         }
         return redirect('/'); // Redirect to home if not an admin. Adjust as necessary.
     }
-
-
 
     public function createPoll(CreatePollRequest $request)
     {
@@ -50,8 +49,6 @@ class AdminController extends Controller
         return redirect()->route('admin.dashboard')->with('success', 'Votação criada com sucesso!');
     }
 
-
-
     public function addOption(AddOptionRequest $request, Poll $poll)
     {
         Log::info('addOption method accessed');
@@ -73,7 +70,6 @@ class AdminController extends Controller
         return redirect()->route('admin.dashboard')->with('success', 'Option added successfully!');
     }
 
-
     public function statistics()
     {
         // Fetch all polls
@@ -86,7 +82,6 @@ class AdminController extends Controller
 
         return view('admin.statistics', ['polls' => $polls]);
     }
-
 
     public function manageVoters()
     {
@@ -113,9 +108,6 @@ class AdminController extends Controller
         return redirect('/');
     }
 
-
-
-
     public function showAddOptionForm()
     {
         $poll = Poll::where('singleton', true)->firstOrFail();
@@ -128,8 +120,6 @@ class AdminController extends Controller
         return view('admin.edit_option', ['option' => $option]);
     }
 
-
-
     public function editPoll()
     {
         // Fetch the singleton poll if it exists, otherwise it will be null
@@ -138,7 +128,6 @@ class AdminController extends Controller
         // Return the poll to the view
         return view('polls.edit', compact('poll'));
     }
-
 
     public function updatePoll(Request $request)
     {
@@ -154,5 +143,25 @@ class AdminController extends Controller
         $poll->update($validatedData);
 
         return redirect()->route('admin.dashboard')->with('success', 'Poll updated successfully!');
+    }
+
+    public function searchVoters(Request $request)
+    {
+        Log::info('searchVoters method was called.');
+
+        $query = $request->get('query');
+
+        Log::info("Received search query:", [$query]); // Debugging line
+
+        $voters = DB::table('voters')
+            ->where('name', 'LIKE', '%' . $query . '%')
+            ->orWhere('id_number', 'LIKE', '%' . $query . '%')
+            ->orWhere('region', 'LIKE', '%' . $query . '%')
+            ->get();
+
+        Log::info("Fetched voters:", [$voters]); // Debugging line
+
+
+        return view('voter.partials.voters_table', ['voters' => $voters]);
     }
 }

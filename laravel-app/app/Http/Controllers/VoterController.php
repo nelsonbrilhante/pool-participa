@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 
+
 class VoterController extends Controller
 {
     /**
@@ -90,6 +91,7 @@ class VoterController extends Controller
         $file->storeAs('imports', $filename);
 
         $path = storage_path('app/imports/' . $filename);
+        Log::info("Stored CSV file at: " . $path);
 
         $data = array_map(function ($v) {
             return str_getcsv($v, ";");
@@ -97,35 +99,49 @@ class VoterController extends Controller
 
         array_shift($data); // Removes the CSV header row
 
-        $counter = 1; // Initialize the counter for voter count
+        Log::info("CSV Data: ", $data); // Log the entire CSV data
 
         try {
             foreach ($data as $row) {
-                $regionParts = explode('>', $row[1]);
-                $region = trim(end($regionParts));
-
                 // Extract the numeric portion of the id_number using regex
                 $idNumber = preg_replace('/[^0-9]/', '', $row[0]);
+
+                // If id_number is empty, skip this row
+                if (empty($idNumber)) {
+                    continue;
+                }
+                // Remove any starting letters for the Código value
+                $idNumber = preg_replace('/[^0-9]/', '', $row[0]);
+
+                Log::info("Parsed id_number: " . $idNumber);
+                Log::info("Parsed region: " . trim($row[1])); // Log the parsed region
 
                 $existingVoter = Voter::where('id_number', $idNumber)->first();
 
                 if (!$existingVoter) {
-                    Voter::create([
+                    $newVoter = [
                         'id_number' => $idNumber,
                         'name' => $row[2],
-                        'region' => $region,
+                        'region' => trim($row[1]),
                         'has_voted' => false,
-                    ]);
-                }
+                    ];
 
-                $counter++; // Increment the counter
+                    Voter::create($newVoter);
+                    Log::info("New Voter Created: ", $newVoter); // Log the voter data being saved
+                }
             }
             File::delete($path); // Delete the file after the import
             return redirect()->route('admin.manageVoters')->with('success', 'Votantes adicionados com sucesso.');
         } catch (\Exception $e) {
+            Log::error("Error during import: " . $e->getMessage()); // Log any exceptions
             return redirect()->back()->with('error', 'Ocorreu um erro durante a importação. Verifique o ficheiro e tente de novo. Mensagem de erro: ' . $e->getMessage());
         }
     }
+
+
+
+
+
 
     /**
      * Displays the form to import voters from a CSV file.

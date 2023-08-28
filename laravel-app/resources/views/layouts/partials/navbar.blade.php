@@ -54,7 +54,8 @@
                     @endphp
                     @if ($voter)
                         <li class="nav-item">
-                            <span class="navbar-text mr-3">{{ $voter->name }}</span>
+                            <p>{{ $voter->name }}</p>
+
                         </li>
                     @endif
                 @endif
@@ -69,7 +70,17 @@
                         </form>
                     </li>
                     <li class="nav-item">
-                        <p class="navbar-text mr-3" style="color:white;">{{ Auth::user()->name }}</p>
+                        @if (Auth::check())
+                            <p class="navbar-text mr-3" style="color:white;">{{ Auth::user()->name }}</p>
+                        @elseif(session('voter_id'))
+                            @php
+                                $voter = \App\Models\Voter::where('id_number', session('voter_id'))->first();
+                            @endphp
+                            @if ($voter)
+                                <p class="navbar-text mr-3" style="color:white;">{{ $voter->name }}</p>
+                            @endif
+                        @endif
+
                     </li>
                 @endif
             </ul>

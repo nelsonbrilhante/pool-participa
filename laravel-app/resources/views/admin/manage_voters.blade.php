@@ -15,39 +15,53 @@
             </div>
         @endif
 
+        <!-- Search Input -->
+        <div class="mb-3">
+            <input type="text" class="form-control" id="search-input" placeholder="Pesquisar por ID, nome ou região..."
+                onkeyup="fetchFilteredVoters()">
+        </div>
+
         <div class="card">
             <div class="card-header">Lista de eleitores</div>
             <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th class="text-center">#</th>
-                                <th class="text-center">Número de identificação</th>
-                                <th>Nome completo</th>
-                                <th class="text-center">Mesa de eleitor</th>
-                                <th class="text-center">Já votou?</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php $counter = 1 @endphp
-                            @forelse ($voters as $voter)
-                                <tr>
-                                    <td class="text-center">{{ $counter++ }}</td>
-                                    <td class="text-center">{{ $voter->id_number }}</td>
-                                    <td>{{ $voter->name }}</td>
-                                    <td class="text-center">{{ $voter->table }}</td>
-                                    <td class="text-center">{{ $voter->has_voted ? 'Sim' : 'Não' }}</td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="5" class="text-center">Sem eleitores registados!</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                <div class="table-responsive" id="voters-table">
+                    <!-- Table content will be loaded here dynamically -->
+                    @include('voter.partials.voters_table', ['voters' => $voters])
+
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+function fetchFilteredVoters() {
+    let query = document.getElementById('search-input').value;
+
+    console.log("Search query:", query); // Debugging line
+
+    if (query.length >= 3) {
+        fetch(`/admin/voters/search?query=${query}`)
+            .then(response => {
+                if (!response.ok) {
+                    console.error("Error fetching data:", response.statusText); // Debugging line
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('voters-table').innerHTML = data;
+            })
+            .catch(error => {
+                console.error("AJAX Error:", error); // Debugging line
+            });
+    } else if(query.length == 0) {
+        // If the search field is cleared, fetch all voters again
+        fetch(`/admin/voters/search?query=`)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('voters-table').innerHTML = data;
+            });
+    }
+}
+
+    </script>
 @endsection

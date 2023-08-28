@@ -10,7 +10,14 @@ class Voter extends Authenticatable // Extend Authenticatable instead of Model
 {
     use HasFactory;
 
-    protected $fillable = ['id_number', 'name', 'table', 'has_voted'];
+    protected $fillable = [
+        'id_number',
+        'name',
+        'region',
+        'has_voted',
+        // ... any other attributes
+    ];
+
 
     public function votes()
     {
