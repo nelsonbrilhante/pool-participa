@@ -97,22 +97,28 @@ class VoterController extends Controller
 
         array_shift($data); // Removes the CSV header row
 
+        $counter = 1; // Initialize the counter for voter count
+
         try {
             foreach ($data as $row) {
                 $regionParts = explode('>', $row[1]);
                 $region = trim(end($regionParts));
 
-                $existingVoter = Voter::where('id_number', $row[0])->first();
+                // Extract the numeric portion of the id_number using regex
+                $idNumber = preg_replace('/[^0-9]/', '', $row[0]);
+
+                $existingVoter = Voter::where('id_number', $idNumber)->first();
 
                 if (!$existingVoter) {
                     Voter::create([
-                        'id_number' => $row[0],
-                        'name' => $row[4],
-                        'table' => $row[3],
+                        'id_number' => $idNumber,
+                        'name' => $row[2],
                         'region' => $region,
                         'has_voted' => false,
                     ]);
                 }
+
+                $counter++; // Increment the counter
             }
             File::delete($path); // Delete the file after the import
             return redirect()->route('admin.manageVoters')->with('success', 'Votantes adicionados com sucesso.');
@@ -120,10 +126,6 @@ class VoterController extends Controller
             return redirect()->back()->with('error', 'Ocorreu um erro durante a importação. Verifique o ficheiro e tente de novo. Mensagem de erro: ' . $e->getMessage());
         }
     }
-
-
-
-
 
     /**
      * Displays the form to import voters from a CSV file.

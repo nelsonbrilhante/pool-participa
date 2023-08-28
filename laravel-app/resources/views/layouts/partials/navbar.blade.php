@@ -32,9 +32,14 @@
                                         propostas</a></li>
                                 <li><a class="dropdown-item" href="{{ route('admin.showAddOptionForm') }}">Adicionar
                                         proposta</a></li>
-                                <li><a class="dropdown-item" href="{{ route('admin.manageVoters') }}">Caderno Eleitoral</a></li>
-                                <li><a class="dropdown-item" href="{{ route('admin.csvImport') }}">Importar dados</a></li>
+
+                                <li><a class="dropdown-item" href="{{ route('admin.csvImport') }}">Importar dados</a>
+                                </li>
                             </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.manageVoters') }}">Caderno
+                                Eleitoral</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.statistics') }}">Estatística</a>
@@ -56,16 +61,16 @@
 
                 <!-- Logout Link -->
                 @if (session('voter_id') || Auth::check())
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('logout') }}"
-                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
-                </li>
-                <li class="nav-item">
-                    <p class="navbar-text mr-3" style="color:white;">{{ Auth::user()->name }}</p>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </li>
+                    <li class="nav-item">
+                        <p class="navbar-text mr-3" style="color:white;">{{ Auth::user()->name }}</p>
+                    </li>
                 @endif
             </ul>
         </div>

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Importar votantes por CSV</h1>
+        <h1>Importar caderno eleitoral por CSV</h1>
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}

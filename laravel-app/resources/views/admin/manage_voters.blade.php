@@ -22,6 +22,7 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
+                                <th class="text-center">#</th>
                                 <th class="text-center">Número de identificação</th>
                                 <th>Nome completo</th>
                                 <th class="text-center">Mesa de eleitor</th>
@@ -29,8 +30,10 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php $counter = 1 @endphp
                             @forelse ($voters as $voter)
                                 <tr>
+                                    <td class="text-center">{{ $counter++ }}</td>
                                     <td class="text-center">{{ $voter->id_number }}</td>
                                     <td>{{ $voter->name }}</td>
                                     <td class="text-center">{{ $voter->table }}</td>
@@ -38,7 +41,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4" class="text-center">Sem eleitores registados!</td>
+                                    <td colspan="5" class="text-center">Sem eleitores registados!</td>
                                 </tr>
                             @endforelse
                         </tbody>
