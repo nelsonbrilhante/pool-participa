@@ -14,7 +14,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{ $option->theme }}</h5>
                 <p class="card-text">
-                    <strong>Preponente:</strong> {{ $option->owner }}<br>
+                    <strong>Proponente:</strong> {{ $option->owner }}<br>
                     <strong>Descrição:</strong> {{ $option->description }}<br>
                     <strong>Montante Imputado:</strong> €{{ number_format($option->amount, 2) }}
                 </p>

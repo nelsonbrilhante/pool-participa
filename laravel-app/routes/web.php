@@ -49,6 +49,10 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
     Route::get('/voters', [AdminController::class, 'manageVoters'])->name('admin.manageVoters');
     Route::get('/csv-import', [VoterController::class, 'showCsvImportForm'])->name('admin.csvImport');
     Route::post('/import-voters', [VoterController::class, 'import'])->name('import-voters');
+    Route::get('/voters/search', [AdminController::class, 'searchVoters'])->name('admin.searchVoters');
+
+
+
 
     // POLL ROUTES
     Route::prefix('poll')->group(function () {

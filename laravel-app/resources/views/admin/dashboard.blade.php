@@ -43,7 +43,7 @@
                         @foreach ($poll->options as $option)
                             <li>
                                 <strong>Número:</strong> {{ $option->project_number }}<br>
-                                <strong>Preponente:</strong> {{ $option->owner }}<br>
+                                <strong>Proponente:</strong> {{ $option->owner }}<br>
                                 <strong>Tema:</strong> {{ $option->theme }}<br>
                                 <strong>Descrição:</strong> {{ $option->description }}<br>
                                 <strong>Montante imputado:</strong> €{{ number_format($option->amount, 2) }}<br>

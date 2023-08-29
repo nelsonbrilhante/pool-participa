@@ -33,13 +33,19 @@
                                 <li><a class="dropdown-item" href="{{ route('admin.showAddOptionForm') }}">Adicionar
                                         proposta</a></li>
 
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="managePollsDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Caderno Eleitoral
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="managePollsDropdown">
+                                <li><a class="dropdown-item" href="{{ route('admin.manageVoters') }}">Ver caderno
+                                        eleitoral</a></li>
                                 <li><a class="dropdown-item" href="{{ route('admin.csvImport') }}">Importar dados</a>
                                 </li>
                             </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.manageVoters') }}">Caderno
-                                Eleitoral</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.statistics') }}">Estatística</a>
@@ -54,7 +60,8 @@
                     @endphp
                     @if ($voter)
                         <li class="nav-item">
-                            <span class="navbar-text mr-3">{{ $voter->name }}</span>
+                            <p>{{ $voter->name }}</p>
+
                         </li>
                     @endif
                 @endif
@@ -69,7 +76,17 @@
                         </form>
                     </li>
                     <li class="nav-item">
-                        <p class="navbar-text mr-3" style="color:white;">{{ Auth::user()->name }}</p>
+                        @if (Auth::check())
+                            <p class="navbar-text mr-3" style="color:white;">{{ Auth::user()->name }}</p>
+                        @elseif(session('voter_id'))
+                            @php
+                                $voter = \App\Models\Voter::where('id_number', session('voter_id'))->first();
+                            @endphp
+                            @if ($voter)
+                                <p class="navbar-text mr-3" style="color:white;">{{ $voter->name }}</p>
+                            @endif
+                        @endif
+
                     </li>
                 @endif
             </ul>

@@ -10,7 +10,7 @@
                 <input type="number" class="form-control" id="project_number" name="project_number" required>
             </div>
             <div class="mb-3">
-                <label for="owner" class="form-label">Nome do Preponente</label>
+                <label for="owner" class="form-label">Nome do Proponente</label>
                 <input type="text" class="form-control" id="owner" name="owner" required>
             </div>
             <div class="mb-3">
@@ -19,7 +19,7 @@
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Descrição</label>
-                <textarea class="form-control" id="description" name="description"></textarea>
+                <textarea class="form-control" id="description" rows="13" name="description"></textarea>
             </div>
             <div class="mb-3">
                 <label for="amount" class="form-label">Valor imputado (em euros)</label>
