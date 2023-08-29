@@ -26,7 +26,7 @@
         <!-- Search Input -->
         <div class="mb-3">
             <label for="search-input" class="form-label">Pesquisar</label>
-            <input type="text" class="form-control" id="search-input" placeholder="Pesquisar por ID, nome ou região..."
+            <input type="text" class="form-control" id="search-input" placeholder="Pesquisar por ID ou Nome..."
                 onkeyup="fetchFilteredVoters()">
         </div>
 

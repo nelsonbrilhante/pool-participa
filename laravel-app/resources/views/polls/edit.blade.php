@@ -27,7 +27,7 @@
 
                         <div class="mb-3">
                             <label for="description" class="form-label">Descrição (Opcional)</label>
-                            <textarea class="form-control" id="description" name="description">{{ $poll->description }}</textarea>
+                            <textarea class="form-control" id="description" rows="13" name="description">{{ $poll->description }}</textarea>
                         </div>
 
                         <div class="mb-3">

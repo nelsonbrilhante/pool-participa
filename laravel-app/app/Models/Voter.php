@@ -3,10 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\User as Authenticatable; // Import this
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Voter extends Authenticatable // Extend Authenticatable instead of Model
+class Voter extends Authenticatable
 {
     use HasFactory;
 
@@ -15,13 +14,10 @@ class Voter extends Authenticatable // Extend Authenticatable instead of Model
         'name',
         'region',
         'has_voted',
-        // ... any other attributes
     ];
-
 
     public function votes()
     {
         return $this->belongsToMany(Option::class, 'votes')->withTimestamps();
     }
-
 }

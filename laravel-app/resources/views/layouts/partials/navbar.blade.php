@@ -33,13 +33,19 @@
                                 <li><a class="dropdown-item" href="{{ route('admin.showAddOptionForm') }}">Adicionar
                                         proposta</a></li>
 
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="managePollsDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Caderno Eleitoral
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="managePollsDropdown">
+                                <li><a class="dropdown-item" href="{{ route('admin.manageVoters') }}">Ver caderno
+                                        eleitoral</a></li>
                                 <li><a class="dropdown-item" href="{{ route('admin.csvImport') }}">Importar dados</a>
                                 </li>
                             </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.manageVoters') }}">Caderno
-                                Eleitoral</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.statistics') }}">Estatística</a>

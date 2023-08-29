@@ -9,23 +9,16 @@ use App\Models\Poll;
 use App\Models\Voter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Log;
-
 
 class AdminController extends Controller
 {
     public function dashboard()
     {
         if (auth()->user() && auth()->user()->is_admin) {
-            Log::info('Dashboard method accessed');
-
-            // Fetch the current poll and its options
             $poll = Poll::where('singleton', true)->with('options')->first();
-
             return view('admin.dashboard', compact('poll'));
         }
-        return redirect('/'); // Redirect to home if not an admin. Adjust as necessary.
+        return redirect('/');
     }
 
     public function createPoll(CreatePollRequest $request)
@@ -51,11 +44,6 @@ class AdminController extends Controller
 
     public function addOption(AddOptionRequest $request, Poll $poll)
     {
-        Log::info('addOption method accessed');
-        Log::info('Poll ID:', [$poll->id]);
-        Log::info('Request Data:', $request->all());
-
-
         $this->authorize('create', Option::class);
 
         Option::create([
@@ -72,14 +60,10 @@ class AdminController extends Controller
 
     public function statistics()
     {
-        // Fetch all polls
         $polls = Poll::all();
-
-        // For each poll, sort its options by vote count in descending order
         foreach ($polls as $poll) {
             $poll->options = $poll->options()->orderByDesc('vote_count')->get();
         }
-
         return view('admin.statistics', ['polls' => $polls]);
     }
 
@@ -87,7 +71,6 @@ class AdminController extends Controller
     {
         $voters = Voter::all();
         $regions = Voter::select('region')->distinct()->pluck('region');
-
         $totalVoters = Voter::count();
         $regionCounts = Voter::select('region', DB::raw('count(*) as count'))
             ->groupBy('region')
@@ -103,20 +86,12 @@ class AdminController extends Controller
 
     public function showCreatePollForm()
     {
-        // Ensure the user is authenticated and is an admin
         if (auth()->user() && auth()->user()->is_admin) {
-
-            // Check if a singleton poll already exists
             if (Poll::where('singleton', true)->exists()) {
-                // Redirect to the dashboard with an error message if a poll already exists
                 return redirect()->route('admin.dashboard')->with('error', 'Uma votação já existe.');
             }
-
-            // Display the create poll form if no singleton poll exists
             return view('polls.create');
         }
-
-        // Redirect to home if the user is not an admin
         return redirect('/');
     }
 
@@ -134,10 +109,7 @@ class AdminController extends Controller
 
     public function editPoll()
     {
-        // Fetch the singleton poll if it exists, otherwise it will be null
         $poll = Poll::where('singleton', true)->first();
-
-        // Return the poll to the view
         return view('polls.edit', compact('poll'));
     }
 
@@ -145,7 +117,6 @@ class AdminController extends Controller
     {
         $poll = Poll::where('singleton', true)->firstOrFail();
 
-        // Validate and update the poll's data
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -167,7 +138,7 @@ class AdminController extends Controller
         if ($query) {
             $votersQuery->where(function ($q) use ($query) {
                 $q->where('name', 'LIKE', '%' . $query . '%')
-                  ->orWhere('id_number', 'LIKE', '%' . $query . '%');
+                    ->orWhere('id_number', 'LIKE', '%' . $query . '%');
             });
         }
 
@@ -178,5 +149,4 @@ class AdminController extends Controller
         $voters = $votersQuery->get();
         return view('voter.partials.voters_table', ['voters' => $voters]);
     }
-
 }

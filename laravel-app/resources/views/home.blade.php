@@ -25,6 +25,10 @@
                             <div id="name-field" class="mb-3" style="display:none;">
                                 <label for="name" class="form-label">Introduza o seu nome completo</label>
                                 <input type="text" class="form-control" id="name" name="name">
+                                <small class="form-text text-muted">
+                                    Nome deve ser introduzido em letras maiúsculas, com todos os acentos, tal como registado
+                                    nos cadernos eleitorais.
+                                </small>
                             </div>
 
                             <button type="submit" class="btn btn-primary">Login</button>
@@ -82,14 +86,18 @@
                     method: 'POST',
                     data: $(this).serialize(),
                     success: function(response) {
-                        console.log("Success response: ",
-                        response); // Log the success response for debugging
+                        console.log("Success response: ", response);
+
                         if (response.message === 'requiresNameValidation') {
                             // Show the name input field
                             $('#name-field').show();
-                        } else {
-                            // Redirect to the poll page or handle other success scenarios
+                        } else if (response.success) {
+                            // Redirect to the poll page
                             window.location.href = '{{ route('polls.index') }}';
+                        } else {
+                            // Handle any other unexpected success scenarios here
+                            $('#error-message').show().text(response.message ||
+                                'Unexpected error.');
                         }
                     },
                     error: function(jqXHR) {
