@@ -43,6 +43,9 @@ class PollController extends Controller
             $voter->has_voted = true;
             $voter->save();
 
+            $vote = new Vote(['poll_id' => $poll->id, 'voted_at' => now()]);
+            $vote->save();
+
             DB::commit();
 
             // After a successful vote, return the voteDetails view directly with the selected option data
