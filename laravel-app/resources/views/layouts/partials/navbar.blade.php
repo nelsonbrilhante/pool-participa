@@ -12,6 +12,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
+
                 @if (Auth::check())
                     @if (Auth::user()->is_admin)
                         <!-- Admin Specific Links -->
@@ -32,7 +33,6 @@
                                         propostas</a></li>
                                 <li><a class="dropdown-item" href="{{ route('admin.showAddOptionForm') }}">Adicionar
                                         proposta</a></li>
-
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -61,9 +61,16 @@
                     @if ($voter)
                         <li class="nav-item">
                             <p>{{ $voter->name }}</p>
-
                         </li>
                     @endif
+                @else
+                    <!-- Login Link -->
+                    @if (!Auth::check() && !session('voter_id'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('home') }}">Login</a>
+                        </li>
+                    @endif
+
                 @endif
 
                 <!-- Logout Link -->
@@ -86,7 +93,6 @@
                                 <p class="navbar-text mr-3" style="color:white;">{{ $voter->name }}</p>
                             @endif
                         @endif
-
                     </li>
                 @endif
             </ul>

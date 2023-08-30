@@ -26,8 +26,8 @@
                                 <label for="name" class="form-label">Introduza o seu nome completo</label>
                                 <input type="text" class="form-control" id="name" name="name">
                                 <small class="form-text text-muted">
-                                    Nome deve ser introduzido em letras maiúsculas, com todos os acentos, tal como registado
-                                    nos cadernos eleitorais.
+                                    Nome deve ser introduzido em letras MAIÚSCULAS, com ACENTOS, tal como registado
+                                    no seu Cartão de Cidadão ou Bilhete de Identidade.
                                 </small>
                             </div>
 

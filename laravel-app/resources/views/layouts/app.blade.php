@@ -8,14 +8,15 @@
     <title>NAZARÉ | ORÇAMENTO PARTICIPATIVO 2023</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 
-<body class="bg-light">
+<body>
 
     @include('layouts.partials.navbar')
 
     <!-- Main Content -->
-    <div class="container mt-4">
+    <div class="container">
         @yield('content')
     </div>
 
