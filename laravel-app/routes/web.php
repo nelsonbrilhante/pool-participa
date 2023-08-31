@@ -8,9 +8,10 @@ use App\Http\Controllers\VoterController;
 use App\Http\Controllers\OptionController;
 
 // HOME
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [PollController::class, 'welcomePage'])->name('welcome');
+Route::get('/home', function () { return view('home'); })->name('home');
+
+
 
 // DEBUGGING
 Route::get('/debug-session', [VoterController::class, 'debugSession']);

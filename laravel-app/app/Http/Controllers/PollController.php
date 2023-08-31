@@ -56,7 +56,20 @@ class PollController extends Controller
         }
     }
 
+    public function welcomePage() {
+        // Assuming you have a status field to mark a poll as active
+        $poll = Poll::where('status', 'active')->first();
 
+        // If there's no active poll, you can return a default view or an error
+        if(!$poll) {
+            return view('home'); // Maybe add an error message saying "No active poll found"
+        }
+
+        // Fetch the options related to this poll
+        $options = $poll->options;
+
+        return view('welcome', compact('poll', 'options'));
+    }
 
     public function voteDetails(Poll $poll)
     {

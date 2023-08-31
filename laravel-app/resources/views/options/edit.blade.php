@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container mt-4">
         <h1>Editar Proposta</h1>
 
         <form action="{{ route('options.update', $option->id) }}" method="POST">

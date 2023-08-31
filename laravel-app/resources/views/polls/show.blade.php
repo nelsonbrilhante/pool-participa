@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container mt-4">
     <h2>Escolha uma proposta
     </h2>
     <form action="{{ route('polls.vote', $poll->id) }}" method="POST">

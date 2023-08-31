@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container mt-4">
     <h2>Edit Poll Option</h2>
     <form action="{{ route('admin.updateOption', ['option' => $option->id]) }}" method="POST">
         @csrf

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container mt-4">
         <div class="card">
             <div class="card-header">{{ $poll->title }} - Results</div>
             <div class="card-body">

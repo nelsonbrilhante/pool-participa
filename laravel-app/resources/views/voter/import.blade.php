@@ -5,7 +5,7 @@
         <!-- Page Title -->
         <div class="row">
             <div class="col-12">
-                <h1 class="display-4">Importar Caderno Eleitoral</h1>
+                <h1>Importar Caderno Eleitoral</h1>
             </div>
         </div>
 

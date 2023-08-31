@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h1 class="mb-4">Opções de Votação</h1>
+    <div class="container mt-4" style="padding-bottom: 10%;">
+        <h1 class="mb-4">Propostas a votação</h1>
 
         <!-- Alert sections remain as they are -->
         @if (session('error'))
