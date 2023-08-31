@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h2>Adicionar proposta</h2>
+    <div class="container mt-4">
+        <h1>Adicionar proposta</h1>
         <form action="{{ route('admin.addOption', ['poll' => $poll->id]) }}" method="POST">
             @csrf
             <div class="mb-3">

@@ -1,0 +1,153 @@
+/* This style ensures that the header takes the full viewport width */
+.full-width-header {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+.full-width-section {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+.header-section {
+    padding: 10% 0 !important;
+    color: white;
+}
+
+.header-section h1 {
+    font-size: 5em;
+    font-weight: 800;
+}
+
+.header-section h2 {
+    font-size: 5em;
+    font-weight: 800;
+}
+
+.card-body {
+    /* padding: 0; */
+}
+
+.image-placeholder {
+    width: 100%;
+    height: 200px;
+    /* You can adjust this value according to your needs */
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 15px;
+
+    border-radius: 10px;
+}
+
+.full-width-divider {
+    width: 100vw;
+    height: 1px;
+    /* Adjust if you want a thicker or thinner divider */
+    background-color: #ccc;
+    /* Adjust to your preferred divider color */
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+.bg-lightblue {
+    background-color: #b8edff;
+    /* This is a standard light blue color. Adjust as needed. */
+}
+
+.flex-equal-height {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flex-equal-height>.col-md-6 {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-equal-height .card {
+    flex: 1;
+}
+
+/* Timeline styling */
+.timeline {
+    border-left: 1px solid hsl(0, 0%, 90%);
+    position: relative;
+    list-style: none;
+}
+
+.timeline .timeline-item {
+    position: relative;
+}
+
+.timeline .timeline-item:after {
+    position: absolute;
+    display: block;
+    top: 0;
+}
+
+.timeline .timeline-item:after {
+    background-color: hsl(0, 0%, 90%);
+    left: -38px;
+    border-radius: 50%;
+    height: 11px;
+    width: 11px;
+    content: "";
+}
+
+/* FAQ Section Styles */
+.faq-header {
+    cursor: pointer;
+    padding: 1rem 1.25rem;
+    margin-bottom: 0;
+    font-size: 1.25rem;
+    color: black;
+    background-color: #b8edff;
+    /* light blue background */
+    /* border: 1px solid #007B9E; */
+    /* darker border */
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-width: 2px !important;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s ease;
+}
+
+
+.faq-header:hover {
+    background-color: ##b8edff;
+    /* slightly lighter blue on hover */
+}
+
+
+.faq-content {
+    transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+}
+
+.faq-content.show {
+    max-height: 300px;
+    /* Adjust if necessary */
+    opacity: 1;
+}
+
+#faqAccordion .card {
+    /* border: 1px solid rgba(0,0,0,.125); */
+    /* border-radius: 0.25rem; */
+    margin-bottom: 15px;
+}
+
+#faqAccordion .card-body {
+    /* border-top: 1px solid #007B9E; */
+}

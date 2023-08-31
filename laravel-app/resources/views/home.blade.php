@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container mt-4" style="padding: 10% 0;">
         <h1 class="mb-4 text-center">PLATAFORMA DE VOTO</h1>
 
         <div class="row">

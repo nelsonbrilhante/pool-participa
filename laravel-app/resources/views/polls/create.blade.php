@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container mt-4">
         <h1 class="mb-4">Criar nova votação</h1>
 
         @if (session('error'))

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mt-5">
+    <div class="container mt-4">
         <h2>Debug Session Data</h2>
         <table class="table table-bordered">
             <thead>
