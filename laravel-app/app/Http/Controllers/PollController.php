@@ -14,8 +14,10 @@ class PollController extends Controller
     public function index()
     {
         $activePolls = Poll::where('status', 'active')->get();
-        return view('polls.index', ['polls' => $activePolls]);
+        $voter = Voter::where('id_number', session('voter_id'))->first();
+        return view('polls.index', ['polls' => $activePolls, 'voter' => $voter]);
     }
+
 
     public function show(Poll $poll)
     {

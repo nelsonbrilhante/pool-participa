@@ -5,7 +5,8 @@
         <!-- Voter's Chosen Option -->
         <div class="row mb-5">
             <div class="col-12">
-                <h2 class="mb-3">Detalhes do seu voto:</h2>
+                <h1>O seu voto foi submetido com sucesso!</h1>
+                <h3 class="mb-3">Aqui ficam os detalhes do seu voto:</h3>
                 <div class="card">
                     <div class="card-header bg-success text-white">
                         Proposta Seleccionada

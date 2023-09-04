@@ -22,17 +22,24 @@ class VoterController extends Controller
 
         $voter = Voter::where('id_number', $request->id_number)->first();
 
-        if ($voter && !$voter->has_voted) {
-            if ($request->filled('name') && $request->name === $voter->name) {
-                session(['voter_id' => $voter->id_number]);
-                return response()->json(['success' => true, 'message' => 'Authenticated']);
-            }
-
-            return response()->json(['message' => $request->filled('name') ? 'O nome não corresponde.' : 'requiresNameValidation']);
+        // Check if the voter exists
+        if (!$voter) {
+            return response()->json(['message' => 'Este número não existe nos nossos cadernos eleitorais. Se achar que isto é um erro, entre em contacto com o Município da Nazaré.'], 422);
         }
 
-        return response()->json(['message' => 'Número inválido ou já votou.'], 422);
+        // Check if the voter has already voted
+        if ($voter->has_voted) {
+            return response()->json(['message' => 'Este eleitor já votou. Obrigado pelo seu voto!'], 422);
+        }
+
+        if ($request->filled('name') && $request->name === $voter->name) {
+            session(['voter_id' => $voter->id_number]);
+            return response()->json(['success' => true, 'message' => 'Authenticated']);
+        }
+
+        return response()->json(['message' => $request->filled('name') ? 'O nome não corresponde. Leia as instruções acerca do preenchimento do nome. Nome deve ser introduzido em letras MAIÚSCULAS, com ACENTOS, tal como registado no seu Cartão de Cidadão ou Bilhete de Identidade.' : 'requiresNameValidation']);
     }
+
 
     public function validateVoter(Request $request)
     {
