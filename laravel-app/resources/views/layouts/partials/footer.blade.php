@@ -14,7 +14,7 @@
                     reservados. </p>
                 <p style="font-size: .8rem;">
                     Desenvolvido por: <a href="https://nelsonbrilhante.com" target="_blank"
-                        style="color: inherit; text-decoration: inherit;">Nelson Brilhante | GTIM</a>
+                        style="color: inherit; text-decoration: inherit;">Nelson Brilhante</a> | GTIM
                 </p>
             </div>
         </div>

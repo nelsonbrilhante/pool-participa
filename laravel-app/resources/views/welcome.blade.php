@@ -2,7 +2,15 @@
 
 @section('content')
     @include('partials.welcome.header')
-    @include('partials.welcome.options')
+
+    @if (!$isPollActive)
+        <div class="alert alert-warning mt-3">
+            Neste momento não existe qualquer votação a decorrer.
+        </div>
+    @endif
+    @if ($isPollActive)
+        @include('partials.welcome.options')
+    @endif
 
     <div class="full-width-divider"></div>
 

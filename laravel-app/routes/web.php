@@ -9,9 +9,9 @@ use App\Http\Controllers\OptionController;
 
 // HOME
 Route::get('/', [PollController::class, 'welcomePage'])->name('welcome');
-Route::get('/home', function () { return view('home'); })->name('home');
-
-
+Route::get('/home', function () {
+    return view('home');
+})->name('home');
 
 // DEBUGGING
 Route::get('/debug-session', [VoterController::class, 'debugSession']);
@@ -51,9 +51,6 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
     Route::get('/csv-import', [VoterController::class, 'showCsvImportForm'])->name('admin.csvImport');
     Route::post('/import-voters', [VoterController::class, 'import'])->name('import-voters');
     Route::get('/voters/search', [AdminController::class, 'searchVoters'])->name('admin.searchVoters');
-
-
-
 
     // POLL ROUTES
     Route::prefix('poll')->group(function () {

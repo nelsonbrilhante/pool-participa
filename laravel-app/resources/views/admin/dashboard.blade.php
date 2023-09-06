@@ -11,19 +11,34 @@
         @else
             <!-- Create New Poll Section -->
             <div class="card mb-4">
-                <div class="card-header">Criar uma votação</div>
+                <div class="card-header">SETUP INICIAL</div>
                 <div class="card-body">
+                    <h5>Bem-vindo setup inicial!</h5>
+                    <p class="form-text text-muted mb-4">
+                        Aqui pode criar a votação que irá ter lugar brevemente.</br>
+                        Para tal, preencha os seguintes campos e pressione no botão 'Criar votação'.
+                    </p>
                     <form method="POST" action="{{ route('admin.createPoll') }}">
 
                         @csrf
                         <div class="mb-3">
-                            <label for="title" class="form-label">Titulo da votação</label>
+                            <label for="title" class="form-label">Título da votação</label>
                             <input type="text" class="form-control" id="title" name="title" required>
                         </div>
                         <div class="mb-3">
                             <label for="description" class="form-label">Descrição (Opcional)</label>
                             <textarea class="form-control" id="description" name="description"></textarea>
                         </div>
+
+                        <!-- Status field -->
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Estado da votação</label>
+                            <select class="form-select" id="status" name="status" required>
+                                <option value="active">Ativa</option>
+                                <option value="inactive">Inativa</option>
+                            </select>
+                        </div>
+
                         <button type="submit" class="btn btn-primary">Criar votação</button>
                     </form>
                 </div>
