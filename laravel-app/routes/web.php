@@ -3,9 +3,10 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\PollController;
-use App\Http\Controllers\VoterController;
 use App\Http\Controllers\OptionController;
+use App\Http\Controllers\PollController;
+use App\Http\Controllers\StatisticsController;
+use App\Http\Controllers\VoterController;
 
 // HOME
 Route::get('/', [PollController::class, 'welcomePage'])->name('welcome');
@@ -46,7 +47,10 @@ Route::post('/register', [RegisterController::class, 'register']);
 // ADMIN ROUTES
 Route::middleware(['admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::get('/statistics', [AdminController::class, 'statistics'])->name('admin.statistics');
+    // Route::get('/statistics', [AdminController::class, 'statistics'])->name('admin.statistics');
+
+    Route::get('/statistics', [StatisticsController::class, 'showStatistics'])->name('admin.statistics');
+
     Route::get('/voters', [AdminController::class, 'manageVoters'])->name('admin.manageVoters');
     Route::get('/csv-import', [VoterController::class, 'showCsvImportForm'])->name('admin.csvImport');
     Route::post('/import-voters', [VoterController::class, 'import'])->name('import-voters');

@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="bg-dark mt-5">
+<footer class="bg-dark" style="margin-top: 15% !important">
     <div class="container py-4">
         <div class="row mb-4">
             <!-- Centered Column: Logo -->
