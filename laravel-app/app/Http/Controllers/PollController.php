@@ -9,6 +9,8 @@ use App\Models\Voter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Log;
+
 class PollController extends Controller
 {
     public function index()
@@ -45,8 +47,20 @@ class PollController extends Controller
             $voter->has_voted = true;
             $voter->save();
 
-            $vote = new Vote(['poll_id' => $poll->id, 'voted_at' => now()]);
+            // Saving the region, poll_id, voted_at, and option_id here
+            $vote = new Vote([
+                'poll_id' => $poll->id,
+                'voted_at' => now(),
+                'region' => $voter->region,
+                'option_id' => $selectedOption
+            ]);
+
+            $selectedOption = $request->input('option_id');
+            Log::info("Selected Option: $selectedOption"); // Debugging Line
+
             $vote->save();
+
+            Log::info("Saved Vote: " . json_encode($vote)); // Debugging Line
 
             DB::commit();
 
@@ -57,6 +71,8 @@ class PollController extends Controller
             return redirect()->route('polls.error')->with('error', 'Ocorreu um erro ao processar o seu voto. Por favor tente de novo. Se voltar a ocorrer o erro, por favor entre em contacto com o Município da Nazaré.');
         }
     }
+
+
 
     public function welcomePage()
     {

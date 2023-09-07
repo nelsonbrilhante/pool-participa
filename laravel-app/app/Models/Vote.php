@@ -12,6 +12,8 @@ class Vote extends Model
     protected $fillable = [
         'poll_id',
         'voted_at',
+        'region',
+        'option_id',
     ];
 
     public function poll()
